@@ -40,13 +40,18 @@ void main()
     {
         int client_fd = accept(s, 0, 0);
 
-        char buffer[256] = {0};
-        recv(client_fd, buffer, 256, 0);
+        char buffer[1024] = {0};
+        int status = recv(client_fd, buffer, sizeof(buffer), 0);
+
+        if(status == 0){
+            printf("Connection closed by peer");
+            continue;
+        }
 
         char *f = buffer + 5;
         *strchr(f, ' ') = 0;
-        struct stat st;
 
+        struct stat st;
         int opened_fd = 0;
         char response_buffer[100];
         if (strcmp(f, "") == 0 || strcmp(f, default_page) == 0)
