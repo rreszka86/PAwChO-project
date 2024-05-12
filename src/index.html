@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your IP&Time</title>
+  </head>
+  <script>
+    const ip_url = "https://api.ipify.org";
+    fetch(ip_url)
+      .then((response) => response.text())
+      .then((content) => {
+        let ipAddress = content;
+
+        document.getElementById("ip").innerHTML = ipAddress;
+
+        const tz_url = `http://worldtimeapi.org/api/ip/${ipAddress}`;
+        fetch(tz_url)
+          .then((response) => response.json())
+          .then((content) => {
+            let tz_data = content;
+
+            let time = tz_data.datetime.split("T")[1].split(".")[0];
+            let date = tz_data.datetime.split("T")[0];
+
+            document.getElementById("time").innerHTML = time;
+            document.getElementById("date").innerHTML = date;
+            document.getElementById("timezone").innerHTML = tz_data.timezone;
+          })
+          .catch((error) => {
+            console.error("Error obtaining timezone: ", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error obtaining IP: ", error);
+      });
+  </script>
+  <body>
+    <p>Your IP address is <span id="ip"></span></p>
+    <p id="clock">
+      It's <span id="time"></span> (<span id="date"></span>) in your timezone -
+      <span id="timezone"></span>.
+    </p>
+  </body>
+</html>
