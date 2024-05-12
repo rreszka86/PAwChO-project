@@ -43,10 +43,13 @@ void main()
         char buffer[1024] = {0};
         int status = recv(client_fd, buffer, sizeof(buffer), 0);
 
-        if(status == 0){
+        if (status == 0)
+        {
             printf("Connection closed by peer");
             continue;
         }
+
+        buffer[sizeof(buffer) - 1] = ' ';
 
         char *f = buffer + 5;
         *strchr(f, ' ') = 0;
