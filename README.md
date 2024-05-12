@@ -60,3 +60,7 @@ I think that achieved size of my image is satisfying. It could be even smaller i
 My image is available [here](https://hub.docker.com/r/rreszka/pawcho/), while the screenshot with the size of this image stored locally is below:
 
 ![Image size - screenshot](./preview/image-size.png)
+
+## Optional part of the project
+
+Description for optional part is available [here](./ex1_optional.md).
